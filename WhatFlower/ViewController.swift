@@ -69,8 +69,10 @@ class ViewController: UIViewController {
                 fatalError("Model failed to process image")
             }
             
+            print(results)
+            
             if let firstResult = results.first {
-                self.navigationItem.title = firstResult.identifier
+                self.navigationItem.title = firstResult.identifier.capitalized
             }
         }
         
