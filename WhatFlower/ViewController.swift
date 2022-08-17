@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    //MARK: - IBActions methods
 
     @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
         openCamera()
@@ -26,6 +28,8 @@ class ViewController: UIViewController {
     @IBAction func libraryTapped(_ sender: UIBarButtonItem) {
         openLibrary()
     }
+    
+    //MARK: - Own ViewController methods
     
     func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
@@ -55,6 +59,30 @@ class ViewController: UIViewController {
         }
     }
     
+    func detect(flowerImage: CIImage) {
+        guard let model = try? VNCoreMLModel(for: MLModel(contentsOf: FlowerClassifier.urlOfModelInThisBundle)) else {
+            fatalError("Loading CoreML Model Failed")
+        }
+        
+        let request = VNCoreMLRequest(model: model) { request, error in
+            guard let results = request.results as? [VNClassificationObservation] else {
+                fatalError("Model failed to process image")
+            }
+            
+            if let firstResult = results.first {
+                self.navigationItem.title = firstResult.identifier
+            }
+        }
+        
+        let handler = VNImageRequestHandler(ciImage: flowerImage)
+        
+        do {
+            try handler.perform([request])
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 
 //MARK: - UIImagePicker and Navigation Controller methods
@@ -69,7 +97,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         }
         
         imageView.image = userPickerImage
-        // detect(image: ciimage)
+         detect(flowerImage: ciimage)
         
         dismiss(animated: true)
     }
