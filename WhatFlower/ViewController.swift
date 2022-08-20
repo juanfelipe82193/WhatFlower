@@ -21,6 +21,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.backgroundColor = UIColor.systemMint
+        navigationItem.standardAppearance = navBarAppearance
+        navigationItem.scrollEdgeAppearance = navBarAppearance
+        navigationItem.compactAppearance = navBarAppearance
+        
     }
     
     //MARK: - IBActions methods
@@ -73,7 +82,7 @@ class ViewController: UIViewController {
                 fatalError("Model failed to process image")
             }
             
-//            print(results)
+            print(results.first!)
             
             if let firstResult = results.first {
                 self.navigationItem.title = firstResult.identifier.capitalized
