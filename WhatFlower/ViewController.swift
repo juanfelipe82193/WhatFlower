@@ -8,12 +8,15 @@
 import UIKit
 import CoreML
 import Vision
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
+    let wikipediaURL = "https://en.wikipedia.org/w/api.php"
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var label: UILabel!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,10 +72,11 @@ class ViewController: UIViewController {
                 fatalError("Model failed to process image")
             }
             
-            print(results)
+//            print(results)
             
             if let firstResult = results.first {
                 self.navigationItem.title = firstResult.identifier.capitalized
+                self.requestInfo(flowerName: firstResult.identifier)
             }
         }
         
@@ -82,6 +86,36 @@ class ViewController: UIViewController {
             try handler.perform([request])
         } catch {
             print(error)
+        }
+    }
+    
+    func requestInfo(flowerName: String) {
+        
+        let parameters: [String:String] = [
+            "format": "json",
+            "action": "query",
+            "prop": "extracts",
+            "exintro": "",
+            "explaintext": "",
+            "titles": flowerName,
+            "indexpageids": "",
+            "redirects": "1"
+        ]
+        
+        Alamofire.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { response in
+            if response.result.isSuccess {
+                print("Got the wikipedia info.")
+                print(response)
+                
+                let flowerJSON: JSON = JSON(response.result.value!)
+                
+                let pageID = flowerJSON["query"]["pageids"][0].stringValue
+                
+                let flowerDescription = flowerJSON["query"]["pages"][pageID]["extract"].stringValue
+                
+                self.label.text = flowerDescription
+                
+            }
         }
     }
     

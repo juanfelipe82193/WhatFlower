@@ -17,16 +17,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9CC-EK-Kjo">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9CC-EK-Kjo" secondAttribute="height" multiplier="1:1" id="nCD-3V-Wj0"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jX4-lY-1Ds">
+                                <rect key="frame" x="20" y="522" width="374" height="340"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="9CC-EK-Kjo" secondAttribute="bottom" id="2fU-qO-byu"/>
-                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PjY-bM-6UC"/>
-                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="amv-v2-3bu"/>
-                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hEQ-CE-JWr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jX4-lY-1Ds" secondAttribute="trailing" constant="20" id="PVf-qD-u8n"/>
+                            <constraint firstItem="jX4-lY-1Ds" firstAttribute="top" secondItem="9CC-EK-Kjo" secondAttribute="bottom" constant="20" id="Y9i-oh-d5n"/>
+                            <constraint firstItem="jX4-lY-1Ds" firstAttribute="top" secondItem="9CC-EK-Kjo" secondAttribute="bottom" constant="20" id="ZUK-RG-scL"/>
+                            <constraint firstItem="jX4-lY-1Ds" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="adA-BN-vL7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jX4-lY-1Ds" secondAttribute="trailing" constant="20" id="ift-ij-jt2"/>
+                            <constraint firstItem="jX4-lY-1Ds" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kNs-Uh-0YT"/>
+                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="mQG-RW-fen"/>
+                            <constraint firstItem="jX4-lY-1Ds" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qSd-SV-6Aj"/>
+                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u31-jA-QHS"/>
+                            <constraint firstItem="9CC-EK-Kjo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yJ2-e2-9lR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HqF-at-zMg">
@@ -43,6 +58,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="9CC-EK-Kjo" id="i7d-gn-bxY"/>
+                        <outlet property="label" destination="jX4-lY-1Ds" id="okd-bQ-QTK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
