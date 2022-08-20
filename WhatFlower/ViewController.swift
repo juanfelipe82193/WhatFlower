@@ -10,6 +10,7 @@ import CoreML
 import Vision
 import Alamofire
 import SwiftyJSON
+import SDWebImage
 
 class ViewController: UIViewController {
     
@@ -94,12 +95,13 @@ class ViewController: UIViewController {
         let parameters: [String:String] = [
             "format": "json",
             "action": "query",
-            "prop": "extracts",
+            "prop": "extracts|pageimages",
             "exintro": "",
             "explaintext": "",
             "titles": flowerName,
             "indexpageids": "",
-            "redirects": "1"
+            "redirects": "1",
+            "pithumbsize": "500"
         ]
         
         Alamofire.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { response in
@@ -112,6 +114,10 @@ class ViewController: UIViewController {
                 let pageID = flowerJSON["query"]["pageids"][0].stringValue
                 
                 let flowerDescription = flowerJSON["query"]["pages"][pageID]["extract"].stringValue
+                
+                let flowerImageURL = flowerJSON["query"]["pages"][pageID]["thumbnail"]["source"].stringValue
+                
+                self.imageView.sd_setImage(with: URL(string: flowerImageURL))
                 
                 self.label.text = flowerDescription
                 
@@ -132,8 +138,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             fatalError("Could not convert picked image to UIImage or CIImage")
         }
         
-        imageView.image = userPickerImage
-         detect(flowerImage: ciimage)
+        detect(flowerImage: ciimage)
+        
         
         dismiss(animated: true)
     }
